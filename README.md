@@ -17,7 +17,8 @@ The next step was to install Ansible and Jekins on the Jenkins-Ansible server
 ``` 
 sudo apt update 
 ```
-```sudo apt install default-jdk-headless
+```
+sudo apt install default-jdk-headless
 ```
 ### Install Jenkins
 ```
