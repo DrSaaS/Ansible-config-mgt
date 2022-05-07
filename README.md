@@ -84,6 +84,261 @@ Next, I configured a Github hook trigger for GITScm polling and a Post-build job
 
 [Post-build job](https://missafricagb.com/git/post-build-job.JPG)
 
+check that artifacts (6th build) are stored on the jenkins server
+
+```
+ls /var/lib/jenkins/jobs/ansible/builds/6/archive/
+
+```
+
+[Artifacts on Jenkins Server](https://missafricagb.com/git/files-archived-jenkins-server.JPG)
+
+
+
+###The next step was to prepare the Development Environment using VSC
+
+### Next, I connected to the Github repository (Ansible-config-mgt)
+
+Then I proceeded to clone the github repository
+
+[Clone Github repository](https://missafricagb.com/git/vscode-github-repo-clone.JPG)
+
+I confirmed I was in the correct git branch (main) in VSC using gitbash
+
+```
+git branch
+```
+
+[Git branch confirmation](https://missafricagb.com/git/confirm-git-branch-main.JPG)
+
+Next I checked the git status
+
+
+``
+git status
+```
+[Git status](https://missafricagb.com/git/git-status.JPG)
+
+I then created a new branch and named it projectx
+
+```
+git checkout -b projectx
+```
+[New branch](https://missafricagb.com/git/branch-projectx.JPG)
+
+
+I created a directory and named it playbooks – it will be used to store all the playbook files.
+```
+mkdir playbooks
+``
+
+I also created a directory and named it inventory – it will be used to keep the hosts organised.
+```
+mkdir inventory
+```
+
+Within the playbooks folder, I created the first playbook, and named it common.yml
+
+```
+touch playbooks/common.yml
+```
+Within the inventory folder, I created an inventory file (.yml) for each environment (Development, Staging Testing and Production) dev, staging, uat, and prod respectively.
+```
+touch inventory/dev.yml inventory/staging.yml inventory/uat.yml inventory/prod.yml
+```
+
+### Step 4 - Set up Ansible Inventory
+This will define the hosts and group of hosts upon which the playbook commands will operate.
+
+Next I set up the ssh-agent
+
+```
+eval `ssh-agent -s`
+ssh-add darey-io-keypair.pem
+```
+
+I confirmed that the key had been added with the command ssh-add -l
+```
+ssh-add -l
+```
+
+I then connected to the jenkins server using the ssh agent and the servers public IP4 address
+
+```
+ssh -A ubuntu@3.9.19.63
+```
+[SSH-agent connection](https://missafricagb.com/git/ssh-agent-connection.JPG)
+
+
+I updated inventory/dev.yml with this snippet of code setting each server's private IP as host 
+
+```
+[nfs]
+172.31.24.237 ansible_ssh_user='ec2-user'
+
+[webservers]
+172.31.19.173 ansible_ssh_user='ec2-user'
+172.31.27.39 ansible_ssh_user='ec2-user'
+
+[db]
+172.31.27.141 ansible_ssh_user='ec2-user' 
+
+[lb]
+172.31.29.165 ansible_ssh_user='ubuntu'
+```
+
+
+### CREATE A COMMON PLAYBOOK
+---
+** Step 5 – Create a Common Playbook
+This will give Ansible the instructions on what you needs to be performed on all servers listed in inventory/dev.
+
+I updated playbooks/common.yml file with following code:
+
+```
+---
+- name: update web, nfs and db servers
+  hosts: webservers, nfs, db
+  remote_user: ec2-user
+  become: yes
+  become_user: root
+  tasks:
+    - name: ensure wireshark is at the latest version
+      yum:
+        name: wireshark
+        state: latest
+
+- name: update LB server
+  hosts: lb
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  tasks:
+    - name: Update apt repo
+      apt: 
+        update_cache: yes
+
+    - name: ensure wireshark is at the latest version
+      apt:
+        name: wireshark
+        state: latest
+
+```
+
+
+**Step 6 – Update GIT with the latest code
+The next step was to push the directories and files on the local machine to GitHub.
+
+```
+git status
+
+git add .
+
+git commit -m "Commit updated local folders and files"
+
+git push origin projectx
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
