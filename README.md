@@ -84,6 +84,69 @@ Next, I configured a Github hook trigger for GITScm polling and a Post-build job
 
 [Post-build job](https://missafricagb.com/git/post-build-job.JPG)
 
+check that artifacts (6th build) are stored on the jenkins server
+
+```
+ls /var/lib/jenkins/jobs/ansible/builds/6/archive/
+
+```
+
+[Artifacts on Jenkins Server](https://missafricagb.com/git/files-archived-jenkins-server.JPG)
+
+
+
+###The next step was to prepare the Development Environment using VSC
+
+### Next, I connected to the Github repository (Ansible-config-mgt)
+
+Then I proceeded to clone the github repository
+
+[Clone Github repository](https://missafricagb.com/git/vscode-github-repo-clone.JPG)
+
+I confirmed I was in the correct git branch (main) in VSC using gitbash
+
+```
+git branch
+```
+
+[Git branch confirmation](https://missafricagb.com/git/confirm-git-branch-main.JPG)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
