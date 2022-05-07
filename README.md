@@ -111,6 +111,7 @@ git branch
 
 [Git branch confirmation](https://missafricagb.com/git/confirm-git-branch-main.JPG)
 
+projectx
 Next I checked the git status
 
 
@@ -238,6 +239,8 @@ git commit -m "Commit updated local folders and files"
 
 git push origin projectx
 ```
+
+
 
 
 
