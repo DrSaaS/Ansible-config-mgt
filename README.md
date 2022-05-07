@@ -72,12 +72,19 @@ ansible 2.10.8
 ### The next step is to configure Jenkins build job to save the repository content every time it changes.
 
 
-Create a new Freestyle project ansible in Jenkins and point it to your ‘ansible-config-mgt’ repository.
-Configure Webhook in GitHub and set webhook to trigger ansible build.
+I created a new Freestyle project ansible in Jenkins and pointed it to the ‘ansible-config-mgt’ repository.
+
+I Configured Webhook in GitHub and set webhook to trigger the ansible build.
 
 [Github Webhook](https://missafricagb.com/git/github-webhook.JPG)
 
-Configure a Post-build job to save all (**) files, like you did it in Project 9.
+Next, I configured a Github hook trigger for GITScm polling and a Post-build job in Jenkins to save all (**) files
+
+[Github hook trigger](https://missafricagb.com/git/build-triggers.JPG)
+
+[Post-build job](https://missafricagb.com/git/post-build-job.JPG)
+
+
 
 
 
